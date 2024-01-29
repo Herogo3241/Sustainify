@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "1037081931118",
+    "project_id": "sustainify-91e90",
+    "storage_bucket": "sustainify-91e90.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1037081931118:android:3a3aa6ac6ee4a12b5ba57f",
+        "android_client_info": {
+          "package_name": "com.example.social_code"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1037081931118-u3p554cnof4n9peo62lfnr7hphqfd8fj.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBh-6e0WWyKJaN7SkiudJ2LuJ8r68DveFU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1037081931118-u3p554cnof4n9peo62lfnr7hphqfd8fj.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "1037081931118-dsfm5t2pcp4jhs1kti4bnrv419vrlggj.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.socialCode.RunnerTests"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

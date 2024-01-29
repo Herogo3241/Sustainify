@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>API_KEY</key>
+	<string>AIzaSyCi5yEanPOlMQXgCfw8Xf0ZfLxtaPT5s74</string>
+	<key>GCM_SENDER_ID</key>
+	<string>1037081931118</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.example.socialCode.RunnerTests</string>
+	<key>PROJECT_ID</key>
+	<string>sustainify-91e90</string>
+	<key>STORAGE_BUCKET</key>
+	<string>sustainify-91e90.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:1037081931118:ios:92165dbb192a03395ba57f</string>
+</dict>
+</plist>
