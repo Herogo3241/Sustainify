@@ -134,11 +134,16 @@ class _EventsPageState extends State<EventPage> {
   }
 }
 
-class EventListItem extends StatelessWidget {
+class EventListItem extends StatefulWidget {
   final Event event;
 
   EventListItem({required this.event});
 
+  @override
+  State<EventListItem> createState() => _EventListItemState();
+}
+
+class _EventListItemState extends State<EventListItem> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -146,23 +151,60 @@ class EventListItem extends StatelessWidget {
         // Handle onTap if needed
       },
       child: Card(
-        margin: EdgeInsets.all(8.0),
+        elevation: 4, // Adding elevation for a shadow effect
+        margin: EdgeInsets.symmetric(
+            vertical: 8.0, horizontal: 16.0), // Adjusted margin
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(12.0), // Rounded corners
+        ),
         child: Padding(
-          padding: EdgeInsets.all(8.0),
+          padding: EdgeInsets.all(16.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               Text(
-                event.title,
+                widget.event.title,
                 style: TextStyle(
-                  fontSize: 18.0,
+                  fontSize: 20.0, // Increased font size
                   fontWeight: FontWeight.bold,
+                  color: Colors.blue, // Changed title color to blue
                 ),
               ),
+              SizedBox(
+                  height: 8.0), // Added spacing between title and description
               Text(
-                'Date: ${DateFormat('yyyy-MM-dd').format(event.date)}',
+                widget.event.description,
+                style: TextStyle(
+                  fontSize: 16.0, // Adjusted font size
+                  color: Colors.black87, // Changed description color
+                ),
+              ),
+              SizedBox(
+                  height:
+                      8.0), // Added spacing between description and location
+              Row(
+                children: [
+                  Icon(
+                    Icons.location_on,
+                    size: 18.0,
+                    color: Colors.grey[600], // Changed location icon color
+                  ),
+                  SizedBox(width: 8.0), // Added spacing between icon and text
+                  Text(
+                    widget.event.location,
+                    style: TextStyle(
+                      fontSize: 16.0,
+                      color: Colors.grey[600], // Changed location text color
+                    ),
+                  ),
+                ],
+              ),
+              SizedBox(height: 8.0), // Added spacing between location and date
+              Text(
+                'Date: ${DateFormat('yyyy-MM-dd').format(widget.event.date)}',
                 style: TextStyle(
                   fontStyle: FontStyle.italic,
+                  color: Colors.grey[600], // Changed date color
                 ),
               ),
               // Add more information here if needed
@@ -202,56 +244,58 @@ class _CreateEventPageState extends State<CreateEventPage> {
       ),
       body: Padding(
         padding: EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            TextField(
-              controller: _titleController,
-              decoration: InputDecoration(labelText: 'Title'),
-            ),
-            TextField(
-              controller: _descriptionController,
-              decoration: InputDecoration(labelText: 'Description'),
-            ),
-            TextField(
-              controller: _locationController,
-              decoration: InputDecoration(labelText: 'Location'),
-            ),
-            SizedBox(height: 20),
-            DateTimeField(
-              format: DateFormat("yyyy-MM-dd"),
-              onChanged: (date) {
-                setState(() {
-                  _selectedDate = date;
-                });
-              },
-              decoration: InputDecoration(
-                labelText: 'Date',
-                border: OutlineInputBorder(),
+        child: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              TextField(
+                controller: _titleController,
+                decoration: InputDecoration(labelText: 'Title'),
               ),
-              onShowPicker: (context, currentValue) {
-                return showDatePicker(
-                  context: context,
-                  initialDate: currentValue ?? DateTime.now(),
-                  firstDate: DateTime(2000),
-                  lastDate: DateTime(2100),
-                );
-              },
-            ),
-            SizedBox(height: 20),
-            ElevatedButton(
-              onPressed: () {
-                final newEvent = Event(
-                  title: _titleController.text,
-                  description: _descriptionController.text,
-                  location: _locationController.text,
-                  date: _selectedDate ?? DateTime.now(),
-                );
-                Navigator.pop(context, newEvent);
-              },
-              child: Text('Create Event'),
-            ),
-          ],
+              TextField(
+                controller: _descriptionController,
+                decoration: InputDecoration(labelText: 'Description'),
+              ),
+              TextField(
+                controller: _locationController,
+                decoration: InputDecoration(labelText: 'Location'),
+              ),
+              SizedBox(height: 20),
+              DateTimeField(
+                format: DateFormat("yyyy-MM-dd"),
+                onChanged: (date) {
+                  setState(() {
+                    _selectedDate = date;
+                  });
+                },
+                decoration: InputDecoration(
+                  labelText: 'Date',
+                  border: OutlineInputBorder(),
+                ),
+                onShowPicker: (context, currentValue) {
+                  return showDatePicker(
+                    context: context,
+                    initialDate: currentValue ?? DateTime.now(),
+                    firstDate: DateTime(2000),
+                    lastDate: DateTime(2100),
+                  );
+                },
+              ),
+              SizedBox(height: 20),
+              ElevatedButton(
+                onPressed: () {
+                  final newEvent = Event(
+                    title: _titleController.text,
+                    description: _descriptionController.text,
+                    location: _locationController.text,
+                    date: _selectedDate ?? DateTime.now(),
+                  );
+                  Navigator.pop(context, newEvent);
+                },
+                child: Text('Create Event'),
+              ),
+            ],
+          ),
         ),
       ),
     );

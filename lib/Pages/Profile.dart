@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -33,6 +34,25 @@ class _ProfilePageState extends State<Profile> {
         _imageFile = File(pickedFile.path);
       }
     });
+  }
+
+  Future<String> _getUsername() async {
+    User? user = FirebaseAuth.instance.currentUser;
+    String username = 'User';
+
+    if (user != null) {
+      DocumentSnapshot<Map<String, dynamic>> snapshot = await FirebaseFirestore
+          .instance
+          .collection('users')
+          .doc(user.uid)
+          .get();
+
+      if (snapshot.exists) {
+        username = snapshot.data()?['username'] ?? 'User';
+      }
+    }
+
+    return username;
   }
 
   Future<void> _uploadImage() async {
@@ -76,35 +96,61 @@ class _ProfilePageState extends State<Profile> {
           ),
         ],
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            GestureDetector(
-              onTap: _getImage,
-              child: CircleAvatar(
-                radius: 50,
-                backgroundImage:  NetworkImage('URL_TO_DEFAULT_IMAGE'),
-                backgroundColor: Colors.grey,
+      body: Center(
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              GestureDetector(
+                onTap: _getImage,
+                child: CircleAvatar(
+                  radius: 70,
+                  backgroundImage: const NetworkImage(
+                          'URL_TO_DEFAULT_IMAGE'),
+                  backgroundColor: Colors.grey,
+                ),
               ),
-            ),
-            SizedBox(height: 20),
-            Text(
-              'Name: ${_user.displayName ?? 'N/A'}',
-              style: TextStyle(fontSize: 20),
-            ),
-            SizedBox(height: 10),
-            Text(
-              'Email: ${_user.email}',
-              style: TextStyle(fontSize: 20),
-            ),
-            SizedBox(height: 20),
-            ElevatedButton(
-              onPressed: _uploadImage,
-              child: Text('Upload Profile Picture'),
-            ),
-          ],
+              SizedBox(height: 20),
+              FutureBuilder<String>(
+                future: _getUsername(),
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                  return CircularProgressIndicator();
+                } else {
+                  if (snapshot.hasData && snapshot.data != null) {
+                    return Text(
+                      'Name: ${snapshot.data}',
+                      style: TextStyle(
+                        fontSize: 24,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    );
+                  } else {
+                    return Text(
+                      'user: N/A',
+                      style: TextStyle(
+                        fontSize: 24,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    );
+                  }
+                }
+                },
+              ),
+              SizedBox(height: 10),
+              Text(
+                'Email: ${_user.email}',
+                style: TextStyle(fontSize: 20),
+              ),
+              SizedBox(height: 20),
+              ElevatedButton(
+                onPressed: _uploadImage,
+                child: Text('Upload Profile Picture'),
+              ),
+            ],
+          ),
         ),
       ),
     );

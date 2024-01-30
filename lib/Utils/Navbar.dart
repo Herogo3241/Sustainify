@@ -18,9 +18,7 @@ class _NavbarState extends State<Navbar> {
   int _selectedIndex = 0;
 
   final List<Widget> _pages = [
-    HomePage(
-      Title: 'Carbero',
-    ),
+    HomePage(title: 'Sustainify',),
     TrackerPage(),
     EventPage(),
     CommunityPage(onPostAdded: (CommunityPost ) {  },),

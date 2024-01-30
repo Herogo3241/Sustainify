@@ -10,23 +10,11 @@ class CommunityPostWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.only(top: 20.0 , left: 16 , right: 16),
-      child: Container(
-        decoration: BoxDecoration(
-          border: Border(
-            bottom: BorderSide(
-              color: Colors.grey, // Define the color of your border
-              width: 1.0, // Define the width of your border
-            ),
-          ),
-        ),
-        child: ListTile(
-          title: Text(post.title),
-          subtitle: Text(
-            post.content.length < 100 ? post.content : '${post.content.substring(0, 100)}...', // Display initial preview of content
-            maxLines: 2,
-            overflow: TextOverflow.ellipsis,
-          ),
+      padding: const EdgeInsets.symmetric(vertical: 12.0, horizontal: 16.0),
+      child: Material(
+        elevation: 6.0,
+        borderRadius: BorderRadius.circular(12.0),
+        child: InkWell(
           onTap: () {
             Navigator.push(
               context,
@@ -35,6 +23,39 @@ class CommunityPostWidget extends StatelessWidget {
               ),
             );
           },
+          borderRadius: BorderRadius.circular(12.0),
+          child: Container(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(12.0),
+              color: Colors.white,
+            ),
+            padding: const EdgeInsets.all(16.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  post.title,
+                  style: TextStyle(
+                    fontSize: 20.0,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.black87,
+                  ),
+                ),
+                SizedBox(height: 8.0),
+                Text(
+                  post.content.length < 100
+                      ? post.content
+                      : '${post.content.substring(0, 100)}...',
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
+                  style: TextStyle(
+                    fontSize: 16.0,
+                    color: Colors.black54,
+                  ),
+                ),
+              ],
+            ),
+          ),
         ),
       ),
     );
