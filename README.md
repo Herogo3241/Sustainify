@@ -1,4 +1,4 @@
-# Sustainable Habit Tracker App
+# Sustainify
 
 Welcome to our Flutter app designed to gamify sustainability! This application helps users track their sustainable habits, participate in events, engage with the community, and manage their profiles seamlessly. Firebase is utilized as the backend to store user data securely.
 
